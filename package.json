@@ -1,0 +1,23 @@
+{
+  "name": "wechat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.7",
+    "express": "^4.15.3",
+    "express-session": "^1.15.6",
+    "fs": "0.0.1-security",
+    "request": "^2.83.0",
+    "wechat-api": "^1.32.1"
+  }
+}

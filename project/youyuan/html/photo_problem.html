@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/pro/youyuan/css/index.css">
+    <script
+            src="http://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous"></script>
+            <script>
+            var data = <%- problems %>
+            </script>
+    <style>
+        .photo {
+            width:100px;
+            height:100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" name="file" id="file"/>
+</body>
+</html>
+
+<script>
+    $('#file').bind('change', function() {
+        var formData = new FormData();
+        var file = $("#file")[0].files[0];
+        formData.append("file", file);
+        formData.append("desc", "测试");
+        $.ajax({
+            url: "http://localhost:8081/photo/index.php",
+            type: "POST",
+            contentType: 'multipart/form-data',
+            data: formData,
+            async: true,
+            cache: false,
+            processData: false, //告诉jQuery不要去设置Content-Type请求头
+            contentType: false, //告诉jQuery不要去处理发送的数据
+            success: function(e) {
+                console.log(e)
+            }
+        });
+    });
+
+    // anwser 图片url
+   '/pro/youyuan/submitAnwer?anwser'
+
+</script>

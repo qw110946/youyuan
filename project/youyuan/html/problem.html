@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/pro/youyuan/css/index.css">
+    <link rel="stylesheet" href="/pro/youyuan/css/public.css">
+    <link rel="stylesheet" href="/pro/youyuan/css/problem.css">
+    <script
+            src="http://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous"></script>
+            <script>
+            var data = <%- problems %>
+            </script>
+    <!--<script src="/pro/youyuan/js/problem.js"></script>-->
+    <title>problem</title>
+</head>
+<body>
+    <div class="main">
+        <div class="countDown">
+            <div class="sign">
+                <img src="../image/materal_01.png" alt="">
+            </div>
+            <div class="text">
+                <p>倒计时：15秒</p>
+            </div>
+        </div>
+
+        <div class="subject">
+            <p>
+                有一头头朝北的牛，它向右转原地转三圈，然后向后转原地转三圈，接着再往右转，这时候它的尾巴朝哪？
+            </p>
+        </div>
+
+        <div class="problem">
+            <button>A.测试答案1</button>
+            <button>B.测试答案2</button>
+            <button>C.测试答案3</button>
+            <button>D.测试答案4</button>
+        </div>
+    </div>
+</body>
+</html>

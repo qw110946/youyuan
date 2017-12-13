@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'MyNewFont_01';
+    src: url('../fontSize/MyNewFont_02.ttf');
+}
+body {
+    background: url('../image/background.png');
+    background-size: 100%;
+    font-family: 'MyNewFont_01';
+    font-size:20px;
+}
+a,p,span {
+    padding:0;
+    margin:0;
+}
+/*.main {*/
+    /*text-align: center;*/
+    /*position: absolute;*/
+    /*top: 20%;*/
+    /*width: 100%;*/
+    /*color: #ae1e26;*/
+/*}*/
+.main {
+    text-align: center;
+    margin: 88px 0 0 0;
+    width: 100%;
+    color: #ae1e26;
+}
