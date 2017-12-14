@@ -5,12 +5,6 @@ module.exports = function (req, res) {
 	var params = req.query;
 	var openid = params.openid;
 
-	// 微信没有传入openid
-	// if(!openid || openid.length === 0) {
-	// 	res.render('youyuan/html/temp',{ html: '<h2>请关闭页面，重新从公众号进入</h2>' })
-	// 	return;
-	// }
-
 	// 用户session有id并且进行了游戏
 	if(req.session.openid) {
 		if(req.session.gameid) { 
@@ -18,6 +12,11 @@ module.exports = function (req, res) {
 			return;
 		}
 	}else{
+		// 微信没有传入openid
+		if(!openid || openid.length === 0) {
+			res.render('youyuan/html/temp',{ html: '<h2>请关闭页面，重新从公众号进入</h2>' })
+			return;
+		}
 		req.session.openid = openid;
 	}
 

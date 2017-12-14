@@ -12,17 +12,23 @@
             src="http://code.jquery.com/jquery-1.12.4.min.js"
             integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
             crossorigin="anonymous"></script>
-            <script>
-            var data = <%- problems %>
-            </script>
-    <!--<script src="/pro/youyuan/js/problem.js"></script>-->
+    <script>
+        var data = <%- problems %>
+    </script>
+    <script src="/pro/youyuan/js/problem.js"></script>
     <title>problem</title>
 </head>
 <body>
+    <div class="loading">
+        <div class="sign">
+            <img src="/pro/youyuan/image/loading.gif" alt="">
+        </div>
+    </div>
+
     <div class="main">
         <div class="countDown">
             <div class="sign">
-                <img src="../image/materal_01.png" alt="">
+                <img src="/pro/youyuan/image/materal_01.png" alt="">
             </div>
             <div class="text">
                 <p>倒计时：15秒</p>
@@ -36,10 +42,25 @@
         </div>
 
         <div class="problem">
-            <button>A.测试答案1</button>
-            <button>B.测试答案2</button>
-            <button>C.测试答案3</button>
-            <button>D.测试答案4</button>
+            <!--<div class="answer">-->
+                <!--<button onclick="choose(this)">A.测试答案1</button>-->
+            <!--</div>-->
+            <!--<div class="answer">-->
+                <!--<button onclick="choose(this)">B.测试答案2</button>-->
+            <!--</div>-->
+            <!--<div class="answer">-->
+                <!--<button onclick="choose(this)">C.测试答案3</button>-->
+            <!--</div>-->
+            <!--<div class="answer">-->
+                <!--<button onclick="choose(this)">D.测试答案4</button>-->
+            <!--</div>-->
+        </div>
+
+        <div class="next" onclick="next()">
+            <div class="sign">
+                <img src="/pro/youyuan/image/materal_02.png" alt="">
+                <p>下一题</p>
+            </div>
         </div>
     </div>
 </body>

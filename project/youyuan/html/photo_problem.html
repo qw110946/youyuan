@@ -11,19 +11,46 @@
             src="http://code.jquery.com/jquery-1.12.4.min.js"
             integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
             crossorigin="anonymous"></script>
-            <script>
-            var data = <%- problems %>
-            </script>
     <style>
         .photo {
             width:100px;
             height:100px;
             background: red;
         }
+        .show {
+            width:100%;
+            text-align:center;
+        }
+        .show > .sign{
+            width: 80%;
+            margin: 20px auto;
+        }
+        .show .sign > img {
+            max-width: 350px;
+            max-height: 290px;
+        }
+
     </style>
 </head>
 <body>
-    <input type="file" name="file" id="file"/>
+    <div class="main">
+        <div class="sign">
+            <input type="file" name="file" id="file"/>
+        </div>
+        <div class="show">
+            <div class="sign">
+                <img src="" alt="">
+            </div>
+        </div>
+
+        <div class="next" onclick="Submit()">
+            <div class="sign">
+                <img src="/pro/youyuan/image/materal_02.png" alt="">
+                <!--<img src="../image/materal_02.png" alt="">-->
+                <p>提交答案</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 
@@ -34,7 +61,7 @@
         formData.append("file", file);
         formData.append("desc", "测试");
         $.ajax({
-            url: "http://localhost:8081/photo/index.php",
+            url: "/pro/youyuan/uploadImg",
             type: "POST",
             contentType: 'multipart/form-data',
             data: formData,
@@ -43,12 +70,15 @@
             processData: false, //告诉jQuery不要去设置Content-Type请求头
             contentType: false, //告诉jQuery不要去处理发送的数据
             success: function(e) {
-                console.log(e)
+                $('.sign img')[0].src = e.url;
             }
         });
     });
 
-    // anwser 图片url
-   '/pro/youyuan/submitAnwer?anwser'
+    // 提交答案
+    Submit = () => {
+        window.location = '/pro/youyuan/submitAnswer?answer=' + encodeURIComponent($('.show .sign img')[0].src);
+    };
+
 
 </script>

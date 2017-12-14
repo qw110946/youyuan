@@ -5,14 +5,15 @@ module.exports = function (req, res) {
 	var gameid = req.session.gameid;// '206a99f3-df07-11e7-81ee-005056b350a4'
 
 	// session没有openid
-	// if(!openid || openid.length === 0) {
-	// 	toError(res)
-	// 	return;
-	// }
-
+	if(!openid || openid.length === 0) {
+		toError(res)
+		return;
+	}
+	
 	// 是否已经开始游戏
 	if(gameid){
-		alreadyGameStart(res, gameid)
+		console.log(gameid,'err1')
+		alreadyGameStart(req, res, gameid)
 		return;
 	}
 
@@ -20,21 +21,28 @@ module.exports = function (req, res) {
 	return randomGameStart(req, res, openid)
 }
 
-function toError(res) {
+function toError(res, i) {
 	res.header("Content-Type", "text/html;charset=utf-8");
-	res.render('youyuan/html/temp',{ html: '<h1>错误</h1><h2>请关闭页面，重新从公众号进入</h2>' })
+	res.render('youyuan/html/temp',{ html: '<h1>错误</h1><h2>请关闭页面，重新从公众号进入</h2>'+i })
 }
 
 // 已经开始游戏
-function alreadyGameStart(res, gameid) {
+function alreadyGameStart(req, res, gameid) {
 
 	// 查找这个游戏的类型
 	linkMysql.call('fetchOneCompetition', [gameid], function(e, value){
-		if(e || !value) { toError(res); return; }
+		if(e || !value) { 
+			req.session.gameid = null; 
+			toError(res, 1);
+			return; 
+		}
 
 		var result = value[0];
 
-		if(!result || !result.length || result.length!==1)  { toError(res); return; }
+		if(!result || !result.length || result.length!==1)  { 
+			req.session.gameid = null; 
+			toError(res, 2); return; 
+		}
 
 		result = result[0];
 
@@ -43,7 +51,7 @@ function alreadyGameStart(res, gameid) {
 		}else if(result.type === '2') {
 			res.redirect('/pro/youyuan/photoProblem');
 		}else{
-			 toError(res);
+			 toError(res, 3);
 		}
 	})
 }
@@ -51,9 +59,11 @@ function alreadyGameStart(res, gameid) {
 // 随机开始游戏
 function randomGameStart(req, res, openid) {
 
-	if(Math.random() > 0.5||1) {
+	if(Math.random() > 0.5&&false) {
+		console.log('err2')
 		normalProblemGame(req, res, openid)
 	} else {
+		console.log('err3')
 		photoProblemGame(req, res, openid)
 	}
 }
@@ -63,11 +73,11 @@ function normalProblemGame(req, res, openid) {
 
 	// 新建游戏
 	linkMysql.call('newOneCompetition', ['openid', '', '1', '0'], function(e, value){
-		if(e || !value) { toError(res); return; }
+		if(e || !value) { toError(res, 4); return; }
 
 		var result = value[0];
 
-		if(!result || !result.length || result.length!==1) { toError(res); return; }
+		if(!result || !result.length || result.length!==1) { toError(res, 5); return; }
 		
 		result = result[0];
 
@@ -82,23 +92,23 @@ function photoProblemGame(req, res, openid) {
 
 	// 获取一个图片问题
 	linkMysql.call('GetOnePhotoProblem', [], function(e, value){
-		if(e || !value) { toError(res); return; }
+		if(e || !value) { toError(res, 6); return; }
 		
 		var result = value[0];
 
-		if(!result || !result.length || result.length!==1) { toError(res); return; }
+		if(!result || !result.length || result.length!==1) { toError(res, 7); return; }
 
 		var result = result[0];
 
 		var problemid = result.id;
 
 		// 新建游戏
-		linkMysql.call('newOneCompetition', [openid, problemid, '1', '0'], function(e, value){
-			if(e || !value) { toError(res); return; }
+		linkMysql.call('newOneCompetition', [openid, problemid, '2', '0'], function(e, value){
+			if(e || !value) { toError(res, 8); return; }
 
 			var result = value[0];
 
-			if(!result || !result.length || result.length!==1) { toError(res); return; }
+			if(!result || !result.length || result.length!==1) { toError(res, 9); return; }
 			
 			result = result[0];
 

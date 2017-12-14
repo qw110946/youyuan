@@ -24,4 +24,33 @@ a,p,span {
     margin: 88px 0 0 0;
     width: 100%;
     color: #ae1e26;
+    display: block;
+
+}
+.next {
+    width: 100%;
+    height: 36px;
+    position: relative;
+}
+
+.next > .sign {
+    width: 102px;
+    position: absolute;
+    top: 0;
+    right: 53px;
+}
+
+.next > .sign img {
+    width: 100%;
+    height: 100%;
+}
+.next > .sign p {
+    position: absolute;
+    width: auto;
+    height: 22px;
+    top: 50%;
+    left: 50%;
+    margin: -11px 0 0 -30px;
+    color: #fff;
+    font-size: 16px;
 }

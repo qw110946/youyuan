@@ -2,8 +2,7 @@ var linkMysql = require('../back_js/linkMysql')
 
 module.exports = function (req, res) {
 	res.header("Content-Type", "text/html;charset=utf-8");
-			res.render('youyuan/html/photo_problem', { problems: 1 })
-res.end();return;
+	
 	var openid = req.session.openid;
 	var gameid = req.session.gameid;
 

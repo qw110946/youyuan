@@ -7,7 +7,7 @@ module.exports = function (req, res) {
 	var openid = req.session.openid;
 	var gameid = req.session.gameid;// '206a99f3-df07-11e7-81ee-005056b350a4'
 	var correct_num = params.correct_num;
-	var anwers = params.anwers;
+	var answer = params.answer;
 
 	// session没有openid
 	if(!openid || openid.length === 0) {
@@ -37,8 +37,8 @@ module.exports = function (req, res) {
 			 toError(res,4);
 			}
 		}else if(result.type === '2') {
-			if(anwers){
-				submitAnwers(req, res, gameid, anwers)
+			if(answer){
+				submitAnwers(req, res, gameid, answer)
 			}else{
 			 toError(res,5);
 			}
@@ -63,8 +63,8 @@ function submitCorrect_num(req, res, gameid, correct_num) {
 	});
 }
 
-function submitAnwers(req, res, gameid, anwers) {
-	linkMysql.call('modifyComAnwers', [gameid, anwers], function(e, value){
+function submitAnwers(req, res, gameid, answer) {
+	linkMysql.call('modifyComAnwers', [gameid, answer], function(e, value){
 		if(e || !value || value.affectedRows !== 1) { toError(res,8); return; }
 		req.session.gameid = null;
 		res.render('youyuan/html/problem_success')
