@@ -35,13 +35,13 @@ module.exports = function(appid, secret){
 
 		getOpenid(appid, secret, params.code, function(body) {
 			var openid = JSON.parse(body).openid;
-			var unionid = JSON.parse(body).unionid;
+			var access_token = JSON.parse(body).access_token;
 
 			if(params.type === 'binduser') {
 				res.send(openid);
 				return;
 			}
-			res.redirect(callbackUrl + '?openid=' + openid)
+			res.redirect(callbackUrl + '?openid=' + openid + '&access_token=' + access_token)
 		})
 		// res.send('Hello World!');
 	}	
@@ -71,7 +71,7 @@ function getCode(res, appid, redirectUri) {
 		appid: appid,
 		redirect_uri: encodeURIComponent(redirectUri),
 		response_type: 'code',
-		scope: 'snsapi_base',
+		scope: 'snsapi_userinfo',
 		state: 'success'
 	};
 

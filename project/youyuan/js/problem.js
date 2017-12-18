@@ -14,7 +14,12 @@ window.onload = function() {
     for(let i = 0; i < data.length; i++) {
         data[i].answer = JSON.parse(data[i].answer)
     }
+};
 
+// 开始答题
+let start = () => {
+    $('.main')[0].style.display = 'block';
+    $('.start')[0].style.display = 'none';
     timerStart(number);
 };
 
@@ -26,19 +31,13 @@ let timerStart = (number) => {
     let countdown = 15;//倒计时
 
     $(".subject p")[0].innerHTML = data[number].name;
-
+    $(".text p")[0].innerHTML = `倒计时：${countdown}秒`;
     let content = '';
 
     for(let i = 0; i < 4; i ++) {
         content += `<div class="answer"><button onclick="choose(this)" data-info=${data[0].answer[i].right} >${data[number].answer[i].name}</button></div>`;
     }
     $('.problem')[0].innerHTML = content;
-    // for(let i = 0; i < data[number].answer.length; i++) {
-    //     let _div = $(".answer button")[i];
-    //     _div.style.background = 'none';
-    //     _div.style.color = '#000';
-    //     _div.innerHTML = data[number].answer[i].name;
-    // }
 
     //下一题
     next = () => {
@@ -66,13 +65,32 @@ let timerStart = (number) => {
 
             clearInterval(timer);
             number++;
-            if(number >= 2) {
-                $('.main')[0].innerHTML = '<div class="next" onclick="Submit()">\n' +
-                    '            <div class="sign">\n' +
-                    '                <img src="/pro/youyuan/image/materal_02.png" alt="">\n' +
-                    '                <p>提交答案</p>\n' +
-                    '            </div>\n' +
-                    '        </div>';
+            if(number >= 10) {
+                let temp_01 = 0;
+                let second = 5;
+                for(let i in answer) {
+                    if(answer[i] == 'true') {
+                        temp_01++;
+                    }
+                }
+                let temp_02 = (temp_01/10) * 100 + '%';
+                $('.main')[0].innerHTML = `<div class="determine"><p>你的答题正确率:${temp_02}</p><p>五秒后自动跳转提交答案</p><span>${second}</span></div>`;
+
+                let timer = setInterval(() => {
+                    second--;
+                    $('.determine span')[0].innerHTML = second;
+                    if(second == 0) {
+                        clearInterval(timer);
+                        window.location = '/pro/youyuan/submitAnswer?correct_num=' + temp_01;
+                    }
+                },1000);
+
+                // $('.main')[0].innerHTML = '<div class="next" onclick="Submit()">\n' +
+                //     '            <div class="sign">\n' +
+                //     '                <img src="/pro/youyuan/image/materal_02.png" alt="">\n' +
+                //     '                <p>提交答案</p>\n' +
+                //     '            </div>\n' +
+                //     '        </div>';
 
                 return;
             }
@@ -83,6 +101,10 @@ let timerStart = (number) => {
 
         // console.log(countdown);
     },1000)
+
+};
+
+determine = () => {
 
 };
 

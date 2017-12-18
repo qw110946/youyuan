@@ -14,7 +14,7 @@ module.exports = {
 		connection.query.apply(connection,arguments);
 	},
 	call: function(name, args, callback){
-		connection.query('CALL ' + name + '('+ (args.length>0? ('"' + args.join('","') + '"'): '') + ')', callback);
+		connection.query('CALL ' + name + '('+ (args.length>0? ("'"+ args.join("','") + "'"): '') + ')', callback);
 	},
 	end: function(){
 		connection.end();

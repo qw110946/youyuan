@@ -54,3 +54,15 @@ a,p,span {
     color: #fff;
     font-size: 16px;
 }
+
+.explain {
+    font-size: 14px;
+    color: #000;
+    padding: 20px 0 0 0;
+    width: 76%;
+    margin: auto;
+    text-align: center;
+}
+.explain p {
+    padding: 10px 0 0 0;
+}

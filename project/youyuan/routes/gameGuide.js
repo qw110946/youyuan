@@ -31,7 +31,7 @@ function alreadyGameStart(req, res, gameid) {
 
 	// 查找这个游戏的类型
 	linkMysql.call('fetchOneCompetition', [gameid], function(e, value){
-		if(e || !value) { 
+		if(e || !value) {  // 查找不到gameid就清除session.gameid
 			req.session.gameid = null; 
 			toError(res, 1);
 			return; 
@@ -39,12 +39,18 @@ function alreadyGameStart(req, res, gameid) {
 
 		var result = value[0];
 
-		if(!result || !result.length || result.length!==1)  { 
+		if(!result || !result.length || result.length!==1)  { // 报错也清除session.gameid
 			req.session.gameid = null; 
 			toError(res, 2); return; 
 		}
 
 		result = result[0];
+
+		// 游戏已结束 
+		if(result.end == '2'){
+			req.session.gameid = null; 
+			toError(res, 2); return; 
+		}
 
 		if(result.type === '1') {
 			res.redirect('/pro/youyuan/normalProblem');
@@ -59,7 +65,7 @@ function alreadyGameStart(req, res, gameid) {
 // 随机开始游戏
 function randomGameStart(req, res, openid) {
 
-	if(Math.random() > 0.5&&false) {
+	if(Math.random() > 0.5) {
 		console.log('err2')
 		normalProblemGame(req, res, openid)
 	} else {

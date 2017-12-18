@@ -29,7 +29,8 @@ module.exports = function (req, res) {
 		var problemid = result.problem_id;
 
 		// 是否普通问题
-		if(result.type != 1) {
+		if(result.type != 1 || result.end == '2') {
+			req.session.gameid = null;
 			res.redirect('/pro/youyuan/index');
 			return;
 		}

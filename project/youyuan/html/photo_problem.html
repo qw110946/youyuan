@@ -7,11 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="/pro/youyuan/css/index.css">
+    <script>
+        var data = <%- problems %>
+    </script>
+    <!--<link rel="stylesheet" href="../css/index.css">-->
     <script
             src="http://code.jquery.com/jquery-1.12.4.min.js"
             integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
             crossorigin="anonymous"></script>
     <style>
+        .main > .sign > input {
+            font-size: 12px;
+            width: 65px;
+            padding: 10px 0 0 0;
+        }
         .photo {
             width:100px;
             height:100px;
@@ -26,14 +35,19 @@
             margin: 20px auto;
         }
         .show .sign > img {
+            width:100%;
             max-width: 350px;
             max-height: 290px;
         }
+
 
     </style>
 </head>
 <body>
     <div class="main">
+        <div class="title">
+            <p></p>
+        </div>
         <div class="sign">
             <input type="file" name="file" id="file"/>
         </div>
@@ -55,6 +69,10 @@
 </html>
 
 <script>
+    window.onload = () => {
+        $('.title p')[0].innerHTML = data.name;
+    };
+
     $('#file').bind('change', function() {
         var formData = new FormData();
         var file = $("#file")[0].files[0];
@@ -77,7 +95,12 @@
 
     // 提交答案
     Submit = () => {
-        window.location = '/pro/youyuan/submitAnswer?answer=' + encodeURIComponent($('.show .sign img')[0].src);
+        if($('.show .sign img')[0].src == "http://wxapi.1473.cn/pro/youyuan/photoProblem") {
+            alert('请上传图片!');
+            return;
+        }else {
+            window.location = '/pro/youyuan/submitAnswer?answer=' + encodeURIComponent($('.show .sign img')[0].src);
+        }
     };
 
 
